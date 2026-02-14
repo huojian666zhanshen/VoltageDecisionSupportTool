@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "VoltageDecisionSupportTool",
+    "version": "1.0.0",
+    "description": "Voltage decision support tool (PF + SecurityCheck). Dify-friendly schema (no array items pitfalls)."
+  },
+  "servers": [{ "url": "https://mcp.gridgpt.dev" }],
+  "paths": {
+    "/decision/voltage_support": {
+      "post": {
+        "operationId": "voltageSupport",
+        "summary": "Voltage decision support (structured single observation)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["case_id", "issue", "pf_endpoint", "observation"],
+                "properties": {
+                  "case_id": { "type": "string", "description": "case14 or case30" },
+                  "issue": { "type": "string", "description": "voltage_low or voltage_high" },
+                  "method": { "type": "string", "description": "ac or dc" },
+                  "pf_endpoint": { "type": "string" },
+                  "security_endpoint": { "type": "string" },
+
+                  "observation": {
+                    "type": "object",
+                    "required": ["bus", "delta"],
+                    "properties": {
+                      "bus": { "type": "integer" },
+                      "delta": { "type": "number", "description": "Voltage deviation in p.u. (negative => low)" }
+                    }
+                  },
+
+                  "limits": { "type": "object" },
+                  "controllables": { "type": "object" },
+                  "search": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    },
+
+    "/decision/voltage_support_from_text": {
+      "post": {
+        "operationId": "voltageSupportFromText",
+        "summary": "Voltage decision support from natural language text",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["text", "case_id", "pf_endpoint"],
+                "properties": {
+                  "text": { "type": "string" },
+                  "case_id": { "type": "string" },
+                  "issue": { "type": "string" },
+                  "method": { "type": "string" },
+                  "pf_endpoint": { "type": "string" },
+                  "security_endpoint": { "type": "string" },
+                  "limits": { "type": "object" },
+                  "controllables": { "type": "object" },
+                  "search": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OK", "content": { "application/json": { "schema": { "type": "object" } } } }
+        }
+      }
+    }
+  }
+}
