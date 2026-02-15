@@ -31,7 +31,7 @@ pip install -r requirements.txt
 uvicorn decision_support_service:app --reload
 访问地址：<http://127.0.0.1:8000>
 
-您也可以直接访问https://mcp.gridgpt.dev来使用API
+您也可以直接访问https://mcp.gridgpt.dev/docs来使用API
 
 ```
 
