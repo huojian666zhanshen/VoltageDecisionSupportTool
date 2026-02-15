@@ -18,7 +18,7 @@
 
 ```bash
 # 克隆仓库
-git clone <your-repository-url>
+git clone <https://github.com/huojian666zhanshen/VoltageDecisionSupportTool.git>
 
 # 创建虚拟环境
 python -m venv venv
@@ -28,7 +28,7 @@ source venv/bin/activate  # 对于Windows用户：venv\\Scripts\\activate
 pip install -r requirements.txt
 运行应用
 # 启动 FastAPI 应用
-uvicorn decision_service.app:app --reload
+uvicorn decision_support_service.app:app --reload
 访问地址：<http://127.0.0.1:8000>
 
 ```
